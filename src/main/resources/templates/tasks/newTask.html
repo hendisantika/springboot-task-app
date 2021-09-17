@@ -1,0 +1,28 @@
+<div class="col-xl-4 col-lg-5">
+    <div class="card shadow mb-4">
+        <!-- Card Header - Dropdown -->
+        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+            <h6 class="m-0 font-weight-bold text-primary">New Task</h6>
+        </div>
+        <!-- Card Body -->
+        <div class="card-body">
+            <form th:action="@{/task/create}" th:method="post" th:object="${newTask}">
+                <div class="form-group">
+                    <label for="title">Title:</label>
+                    <input class="form-control" id="title" th:field="*{title}" type="text">
+                </div>
+                <div class="form-group">
+                    <label for="status">Status:</label>
+                    <select class="form-control" id="status" th:field="*{status}">
+                        <option th:each="status : ${statusList}" th:text="${status}" th:value="${status}"></option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="taskContent">Content:</label>
+                    <textarea class="form-control" id="taskContent" rows="5" th:field="*{content}"></textarea>
+                </div>
+                <button class="btn btn-primary" type="submit">Save</button>
+            </form>
+        </div>
+    </div>
+</div>
