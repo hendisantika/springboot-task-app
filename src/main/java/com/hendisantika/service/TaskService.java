@@ -82,4 +82,15 @@ public class TaskService {
     public void deleteTask(Long taskId) {
         taskRepository.delete(findById(taskId));
     }
+
+    /**
+     * Sets Task.Status to CLOSED
+     *
+     * @param taskId Database ID of task
+     */
+    public void closeTask(Long taskId) {
+        Task task = findById(taskId);
+        task.closeTask();
+        taskRepository.save(task);
+    }
 }
