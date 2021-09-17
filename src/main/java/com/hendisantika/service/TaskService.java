@@ -93,4 +93,16 @@ public class TaskService {
         task.closeTask();
         taskRepository.save(task);
     }
+
+    /**
+     * Sets Task.Status to REOPENED
+     *
+     * @param taskId Database ID of task
+     */
+    public void reopenTask(Long taskId) {
+        Task task = findById(taskId);
+        task.reopenTask();
+        taskRepository.save(task);
+    }
+
 }
