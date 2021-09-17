@@ -149,4 +149,16 @@ public class TaskController {
         taskService.updateTask(taskId, taskDetails);
         return "redirect:/";
     }
+
+    /**
+     * Deletes Task from Database
+     *
+     * @param taskId TaskId
+     * @return redirect to Dashboard
+     */
+    @GetMapping(path = "/task/{id}/delete")
+    public String deleteTask(@PathVariable("id") long taskId, HttpServletRequest request) {
+        taskService.deleteTask(taskId);
+        return "redirect:/";
+    }
 }
