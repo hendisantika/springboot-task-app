@@ -1,8 +1,12 @@
 package com.hendisantika.service;
 
+import com.hendisantika.model.Task;
 import com.hendisantika.repository.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by IntelliJ IDEA.
@@ -18,4 +22,14 @@ public class TaskService {
     @Autowired
     private TaskRepository taskRepository;
 
+    /**
+     * GET all tasks from DB
+     *
+     * @return all tasks from Database
+     */
+    public Set<Task> getTasks() {
+        Set<Task> taskSet = new HashSet<>();
+        taskRepository.findAll().iterator().forEachRemaining(taskSet::add);
+        return taskSet;
+    }
 }
