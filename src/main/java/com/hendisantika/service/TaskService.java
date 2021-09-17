@@ -47,4 +47,15 @@ public class TaskService {
         }
         return taskOptional.get();
     }
+
+    /**
+     * creates new Task and saves it in Database
+     *
+     * @param taskDetails field values
+     * @return new Task
+     */
+    public Task createTask(Task taskDetails) {
+        Task newTask = taskRepository.save(taskDetails);
+        return newTask;
+    }
 }
