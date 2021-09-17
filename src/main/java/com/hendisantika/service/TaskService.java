@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -31,5 +32,19 @@ public class TaskService {
         Set<Task> taskSet = new HashSet<>();
         taskRepository.findAll().iterator().forEachRemaining(taskSet::add);
         return taskSet;
+    }
+
+    /**
+     * finds a task by its ID
+     *
+     * @param taskId Database ID of task
+     * @return task
+     */
+    public Task findById(Long taskId) {
+        Optional<Task> taskOptional = taskRepository.findById(taskId);
+        if (!taskOptional.isPresent()) {
+            throw new RuntimeException("Task Not Found!");
+        }
+        return taskOptional.get();
     }
 }
