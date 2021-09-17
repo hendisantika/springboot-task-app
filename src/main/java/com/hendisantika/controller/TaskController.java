@@ -136,4 +136,17 @@ public class TaskController {
         model.addAttribute("editTask", taskService.findById(taskId));
         return "editView";
     }
+
+    /**
+     * Update Task and save changes in Database
+     *
+     * @param taskId      TaskId
+     * @param taskDetails field values
+     * @return redirect to Dashboard
+     */
+    @PostMapping(path = "/task/{id}/update")
+    public String updateTask(@PathVariable("id") long taskId, Task taskDetails) {
+        taskService.updateTask(taskId, taskDetails);
+        return "redirect:/";
+    }
 }
