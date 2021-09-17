@@ -121,4 +121,19 @@ public class TaskController {
         return "redirect:/";
     }
 
+    /**
+     * Displays an EDIT Form for a Task
+     *
+     * @param model  task Object
+     * @param taskId Id of the Task
+     * @return edit Form
+     */
+    @GetMapping(value = "/task/{id}/edit")
+    public String editForm(Model model, @PathVariable("id") Long taskId) {
+        Set<Status> statusList = new HashSet<>();
+        Status.stream().forEach(statusList::add);
+        model.addAttribute("statusList", statusList);
+        model.addAttribute("editTask", taskService.findById(taskId));
+        return "editView";
+    }
 }
