@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -75,5 +76,35 @@ public class TaskController {
         model.addAttribute("statusList", statusList);
 
         return "index";
+    }
+
+    /**
+     * handles Status Changes
+     *
+     * @param taskId  Task Id
+     * @param action  may contain "close/open/reopen"
+     * @param request helps redirect to previous site
+     * @return redirection
+     */
+    @GetMapping(value = "/task/{id}/{action}")
+    public String handleStatus(@PathVariable("id") Long taskId,
+                               @PathVariable("action") String action,
+                               HttpServletRequest request) {
+        Task task = taskService.findById(taskId);
+
+        if (action.equals("close")) {
+            if (task.getStatus() == Status.OPEN) {
+                taskService.closeTask(taskId);
+            }
+            if (task.getStatus() == Status.REOPENED) {
+                taskService.closeTask(taskId);
+            }
+        }
+        if (action.equals("reopen") && task.getStatus() == Status.CLOSED) {
+            taskService.reopenTask(taskId);
+        }
+
+        String referer = request.getHeader("Referer");
+        return "redirect:" + referer;
     }
 }
