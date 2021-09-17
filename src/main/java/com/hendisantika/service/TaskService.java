@@ -73,4 +73,13 @@ public class TaskService {
         taskRepository.save(task);
         return task;
     }
+
+    /**
+     * deletes Task from Database
+     *
+     * @param taskId Database ID of task
+     */
+    public void deleteTask(Long taskId) {
+        taskRepository.delete(findById(taskId));
+    }
 }
