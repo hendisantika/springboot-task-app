@@ -58,4 +58,19 @@ public class TaskService {
         Task newTask = taskRepository.save(taskDetails);
         return newTask;
     }
+
+    /**
+     * updates Task from Database with field values in taskDetails
+     *
+     * @param taskId      Database ID of task
+     * @param taskDetails field values
+     */
+    public Task updateTask(Long taskId, Task taskDetails) {
+        Task task = findById(taskId);
+        task.setTitle(taskDetails.getTitle());
+        task.setContent(taskDetails.getContent());
+        task.setStatus(taskDetails.getStatus());
+        taskRepository.save(task);
+        return task;
+    }
 }
